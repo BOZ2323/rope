@@ -1,8 +1,8 @@
 function drawRope(x_positions, y_positions, radius)
 {
-    //if (xps.length !== yps.length) {
-      //  throw new Error("horizontalPositions.length does not match verticalPositions.length");
-   // }
+    if (x_positions.length !== y_positions.length) {
+        throw new Error("horizontalPositions.length does not match verticalPositions.length");
+    }
 
     for(var i=0; i<x_positions.length; i++) {
         var x = x_positions[i];
@@ -23,14 +23,18 @@ function drawRope(x_positions, y_positions, radius)
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
     var x_positions = [20, 40, 200, 250, 260];
-
-
+    var y_positions = sinusShape(x_positions);
+    // im array von x_positions werden die x positionen benannt
+    // anhand dieser werte kann die funktion sinusShape die y_positions berechnen
+    
+    
 function sinusShape(x_positions) {
     var y_positions = [];
     for (var i=0; i < x_positions.length; i++){
         var y = Math.sin(x_positions[i] * Math.PI / 180) * -120 + 180;
         console.log(y);
         y_positions.push(y);
+        return y;
 
         //function sinusShape(xps) {
         //  for (var i=0; i < xps.length; i++){
@@ -43,9 +47,6 @@ function sinusShape(x_positions) {
     }
 } 
 
-
-    // im array von x_positions werden die x positionen benannt
-    // anhand dieser werte kann die funktion sinusShape die y_positions berechnen
-    y_positions = sinusShape(x_positions);
-    drawRope(x_positions, y_positions,6);
-    console.log('Hallo Welt');
+sinusShape(x_positions);
+drawRope(x_positions, y_positions,6);
+console.log('Hallo Welt');
