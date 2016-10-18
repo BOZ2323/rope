@@ -14,7 +14,7 @@ function drawRope(horizontalPositions, verticalPositions, radius){
 
         if (i !== 0) {
             ctx.moveTo(x, y); 
-            ctx.lineTo(oldx, oldy); // das objekt ctx hat die eigenschaft lineTo, die eine funktion ist. die funktion lineTo wird mir zwei parametern aufgerufen: werte oldx, oldy 
+            ctx.lineTo(oldx, oldy); // das Objekt ctx hat die Eigenschaft lineTo, die eine Funktion ist. Die Funktion lineTo wird mit zwei Parametern aufgerufen: werte oldx, oldy 
             ctx.stroke();
         }
 
@@ -33,30 +33,56 @@ function sinusShape(xps) {
         // 180 = Translation (Verschiebung auf der y-Achse)
         // PI/180 = SKalierung von x (ist kleiner als 1, daher: verringert die Frequenz)
     }
+    console.log("die X-Positionen:   " + xps);
     console.log(yps);
     return yps;
 } 
+
+//function calcXpositions(start, end, count) {
+//    if (count<2) {
+//        throw new Error("Count must be two or higher");
+//    }
+//    var distance = (end-start) / count;
+//    console.log(distance);
+//    var result = []; //könnte man zuerst alle xPositionen überhaupt errechnen und dann teilen und nur die Anzahl von count im richtigen Abstand stehen lassen?
+//    for (var x=start; x<end; x+=distance) {
+//        result.push(x);
+//    }
+//    console.log(x);
+//    return result;
+//}
+
 
 function calcXpositions(start, end, count) {
     if (count<2) {
         throw new Error("Count must be two or higher");
     }
     var distance = (end-start) / count;
-    var result = [];
-    for (var x=start; x<end; x+=distance) {
-        result.push(x);
+    console.log(distance);
+    var xCoordinates = [];  //evtl. die Strecke erst halbieren und dann nochmal in kleinere Teile zerlegen um Fehler zu verteilen
+    for (var x=start; x<end; x++) {
+        xCoordinates.push(x);
     }
-    console.log(x);
-    return result;
+    console.log (x);
+    return xCoordinates;
 }
+function setXpositions(x_positions){
+    var dotsToBeDrawn = [];
+    for ( var x=0; x<x_postions.length; x+=distance) {
+        
+        dotsToBeDrawn.push(x);
+}
+    console.log (x);
+    return dotsToBeDrawn;
+    }
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 //var x_positions = [20, 40, 200, 250, 260];
-var x_positions = calcXpositions(20, 800, 300); //der Variablen x_positions wird der return-wert zugewiesen 
+var x_positions = calcXpositions(20, 800, 7); //der Variablen x_positions wird der return-wert zugewiesen 
 var y_positions = sinusShape(x_positions);
 // im array von x_positions werden die x positionen benannt
 // anhand dieser werte kann die funktion sinusShape die y_positions berechnen
-
+//calcXpositions(20, 370, 50);
 drawRope(x_positions, y_positions,6);
 console.log('Hallo Welt');
