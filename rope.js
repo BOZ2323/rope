@@ -66,21 +66,25 @@ function calcXpositions(start, end, count) {
     console.log (x);
     return xCoordinates;
 }
-function setXpositions(x_positions){
-    var dotsToBeDrawn = [];
-    for ( var x=0; x<x_postions.length; x+=distance) {
-        
-        dotsToBeDrawn.push(x);
-}
-    console.log (x);
-    return dotsToBeDrawn;
-    }
+
+//function setXpositions(allPossibleX_positions){
+//    var dotsToBeDrawn = [];
+//    for ( var x=0; x<allPossibleX_positions.length; x+=100) {
+//        dotsToBeDrawn.push(x);
+//    }
+//    console.log (dotsToBeDrawn);
+//    return dotsToBeDrawn;
+//}
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+
 //var x_positions = [20, 40, 200, 250, 260];
-var x_positions = calcXpositions(20, 800, 7); //der Variablen x_positions wird der return-wert zugewiesen 
+//var x_positions = setXpositions(allPossibleX_positions);// calcXpositions  muss an setXpositions übergeben werden um dann jede z.B. nur jeden 7.Punkt rauszusuchen und an x_positions weiterzugeben
+x_positions= calcXpositions(20, 800, 7); //der Variablen x_positions wird der return-wert zugewiesen 
 var y_positions = sinusShape(x_positions);
+
+
 // im array von x_positions werden die x positionen benannt
 // anhand dieser werte kann die funktion sinusShape die y_positions berechnen
 //calcXpositions(20, 370, 50);
