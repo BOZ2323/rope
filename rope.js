@@ -52,6 +52,7 @@ function sinusShape(xps) {
 //    return result;
 //}
 
+//als nächstes: 41 bis 53 wieder rein und ab 56 auskommentieren, um zu sehen, ob etwas anderes passiert. calcXpositions sollte alle xpositionen zurückgeben, mit einer weiteren Funktion, iteriert man dann über diese und nimmt count Positionen in gleichem Abstand..
 
 function calcXpositions(start, end, count) {
     if (count<2) {
@@ -64,6 +65,7 @@ function calcXpositions(start, end, count) {
         xCoordinates.push(x);
     }
     console.log (x);
+    console.log (xCoordinates);
     return xCoordinates;
 }
 
@@ -80,13 +82,12 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
 //var x_positions = [20, 40, 200, 250, 260];
-//var x_positions = setXpositions(allPossibleX_positions);// calcXpositions  muss an setXpositions übergeben werden um dann jede z.B. nur jeden 7.Punkt rauszusuchen und an x_positions weiterzugeben
-x_positions= calcXpositions(20, 800, 7); //der Variablen x_positions wird der return-wert zugewiesen 
+//var x_positions = setDots(allPossibleX_positions);// calcXpositions  muss an setXpositions übergeben werden um dann jede z.B. nur jeden 7.Punkt rauszusuchen und an x_positions weiterzugeben
+var x_positions= calcXpositions(20, 800, 7); //der Variablen x_positions wird der return-wert zugewiesen 
 var y_positions = sinusShape(x_positions);
 
 
 // im array von x_positions werden die x positionen benannt
 // anhand dieser werte kann die funktion sinusShape die y_positions berechnen
-//calcXpositions(20, 370, 50);
 drawRope(x_positions, y_positions,6);
 console.log('Hallo Welt');
