@@ -38,56 +38,41 @@ function sinusShape(xps) {
     return yps;
 } 
 
-//function calcXpositions(start, end, count) {
-//    if (count<2) {
-//        throw new Error("Count must be two or higher");
-//    }
-//    var distance = (end-start) / count;
-//    console.log(distance);
-//    var result = []; //könnte man zuerst alle xPositionen überhaupt errechnen und dann teilen und nur die Anzahl von count im richtigen Abstand stehen lassen?
-//    for (var x=start; x<end; x+=distance) {
-//        result.push(x);
-//    }
-//    console.log(x);
-//    return result;
-//}
 
-//als nächstes: 41 bis 53 wieder rein und ab 56 auskommentieren, um zu sehen, ob etwas anderes passiert. calcXpositions sollte alle xpositionen zurückgeben, mit einer weiteren Funktion, iteriert man dann über diese und nimmt count Positionen in gleichem Abstand..
+// calcXpositions sollte alle xpositionen zurückgeben, mit einer weiteren Funktion, iteriert man dann über diese und nimmt count Positionen in gleichem Abstand..
 
 function calcXpositions(start, end, count) {
     if (count<2) {
         throw new Error("Count must be two or higher");
     }
-    var distance = (end-start) / count;
+    var distance = (end-start) / (count - 1);
     console.log(distance);
+
     var xCoordinates = [];  //evtl. die Strecke erst halbieren und dann nochmal in kleinere Teile zerlegen um Fehler zu verteilen
-    for (var x=start; x<end; x++) {
-        xCoordinates.push(x);
+    for (var n=0; n<count; n++) {
+        var xn = start + n * distance;
+        xCoordinates.push(xn);
     }
-    console.log (x);
     console.log (xCoordinates);
     return xCoordinates;
+    
 }
 
-//function setXpositions(allPossibleX_positions){
-//    var dotsToBeDrawn = [];
-//    for ( var x=0; x<allPossibleX_positions.length; x+=100) {
-//        dotsToBeDrawn.push(x);
-//    }
-//    console.log (dotsToBeDrawn);
-//    return dotsToBeDrawn;
-//}
+
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
 //var x_positions = [20, 40, 200, 250, 260];
-//var x_positions = setDots(allPossibleX_positions);// calcXpositions  muss an setXpositions übergeben werden um dann jede z.B. nur jeden 7.Punkt rauszusuchen und an x_positions weiterzugeben
-var x_positions= calcXpositions(20, 800, 7); //der Variablen x_positions wird der return-wert zugewiesen 
+var x_positions = calcXpositions(20, 800, 7); //der Variablen x_positions wird der return-wert zugewiesen 
 var y_positions = sinusShape(x_positions);
-
+var test_positions = calcXpositions(3, 8, 2);
+if (test_positions + "" == "4, 8") {
+    console.log("Test failed. Expected [3, 8]");
+}
 
 // im array von x_positions werden die x positionen benannt
 // anhand dieser werte kann die funktion sinusShape die y_positions berechnen
+//test(test_positions);
 drawRope(x_positions, y_positions,6);
 console.log('Hallo Welt');
