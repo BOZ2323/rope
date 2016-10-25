@@ -38,7 +38,7 @@ function sinusShape(xps) {
     return yps;
 } 
 
-
+/*
 
 function calcXpositions(start, end, count) {
     if (count<2) {
@@ -56,14 +56,35 @@ function calcXpositions(start, end, count) {
     return xCoordinates;
     
 }
+*/
 
+function calcXpositions(start, end, count) {
+    try {
+    if (count<2) {
+        throw new Error("Count must be two or higher");
+    }
+    var distance = (end-start) / (count - 1);
+    console.log(distance);
 
+    var xCoordinates = [];  //evtl. die Strecke erst halbieren und dann nochmal in kleinere Teile zerlegen um Fehler zu verteilen
+    for (var n=0; n<count; n++) {
+        var xn = start + n * distance;
+        xCoordinates.push(xn);
+    }
+    console.log (xCoordinates);
+    return xCoordinates;
+    
+}
 
+    catch(err) {
+        console.log (err);
+    }
+}
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
 //var x_positions = [20, 40, 200, 250, 260];
-var x_positions = calcXpositions(3, 8, 4); //der Variablen x_positions wird der return-wert zugewiesen 
+var x_positions = calcXpositions(20, 340, 23); //der Variablen x_positions wird der return-wert zugewiesen 
 var y_positions = sinusShape(x_positions);
 
 var test_positions = calcXpositions(3, 8, 2);
@@ -79,11 +100,10 @@ if (test_positions + "" !== "3,4.666666666666667,6.333333333333334,8") {
 //if (test_positions + "" !== "3,8") {    
 //    console.log("Test failed. Expected [3, 8]");
 
-//var test_positions = calcXpositions(3,8,1);
-//if (count<2){
-//    console.log("yap!");
-//
-//};
+var test_positions = calcXpositions(3,8,1);
+if (calcXpositions[2]<2){
+    console.log("yap!");
+}
 
 // im array von x_positions werden die x positionen benannt
 // anhand dieser werte kann die funktion sinusShape die y_positions berechnen
