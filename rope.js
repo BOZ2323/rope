@@ -39,7 +39,6 @@ function sinusShape(xps) {
 } 
 
 
-// calcXpositions sollte alle xpositionen zurückgeben, mit einer weiteren Funktion, iteriert man dann über diese und nimmt count Positionen in gleichem Abstand..
 
 function calcXpositions(start, end, count) {
     if (count<2) {
@@ -64,12 +63,27 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
 //var x_positions = [20, 40, 200, 250, 260];
-var x_positions = calcXpositions(20, 800, 7); //der Variablen x_positions wird der return-wert zugewiesen 
+var x_positions = calcXpositions(3, 8, 4); //der Variablen x_positions wird der return-wert zugewiesen 
 var y_positions = sinusShape(x_positions);
+
 var test_positions = calcXpositions(3, 8, 2);
-if (test_positions + "" == "4, 8") {
+if (test_positions + "" !== "3,8") {    
     console.log("Test failed. Expected [3, 8]");
 }
+
+var test_positions = calcXpositions(3, 8, 4);
+if (test_positions + "" !== "3,4.666666666666667,6.333333333333334,8") {     
+    console.log("Test failed. Expected [3,4.666666666666667,6.333333333333334,8]");    
+}
+//var test_positions = calcXpositions(3, 8, 1);
+//if (test_positions + "" !== "3,8") {    
+//    console.log("Test failed. Expected [3, 8]");
+
+//var test_positions = calcXpositions(3,8,1);
+//if (count<2){
+//    console.log("yap!");
+//
+//};
 
 // im array von x_positions werden die x positionen benannt
 // anhand dieser werte kann die funktion sinusShape die y_positions berechnen
