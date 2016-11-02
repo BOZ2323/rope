@@ -71,14 +71,34 @@ function unitTests() {
         }
     }
 
+/*
     function normalCase() {
+            var test_positions = calcXpositions(3, 8, 4);
+            console.log(test_positions);
+            if (test_positions + "" !== "3,4.666666666666667,6.333333333333334,8") {     
+                console.log("Test failed. Expected [3,4.666666666666667,6.333333333333334,8]");    
+            }
+        }
+*/
+
+
+    function normalCase() {
+        function fuzzyNumbersArrayCompare() {
+            var fuzzyNumbers = [];
+            for (i=0; i<test_positions.length; i++){
+            var fuzzies = Math.round(test_positions[i]); //* Math.PI / 180) * -120 + 180;
+            fuzzyNumbers.push(fuzzies);
+            }
+            console.log(fuzzyNumbers);
+            return fuzzyNumbers;
+        }
+
         var test_positions = calcXpositions(3, 8, 4);
+        console.log(test_positions);
         if (test_positions + "" !== "3,4.666666666666667,6.333333333333334,8") {     
             console.log("Test failed. Expected [3,4.666666666666667,6.333333333333334,8]");    
         }
-        //var test_positions = calcXpositions(3, 8, 1);
-        //if (test_positions + "" !== "3,8") {    
-        //    console.log("Test failed. Expected [3, 8]");
+        fuzzyNumbersArrayCompare();
     }
 
     function errorCase() {
