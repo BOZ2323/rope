@@ -71,34 +71,55 @@ function unitTests() {
         }
     }
 
-/*
-    function normalCase() {
-            var test_positions = calcXpositions(3, 8, 4);
-            console.log(test_positions);
-            if (test_positions + "" !== "3,4.666666666666667,6.333333333333334,8") {     
-                console.log("Test failed. Expected [3,4.666666666666667,6.333333333333334,8]");    
-            }
+    function roundNumbers(numbers) {
+        var roundedNumbers = [];
+        for (i=0; i<numbers.length; i++){
+            var x = Math.round(numbers[i]*100)/100;
+            roundedNumbers.push(x);
         }
-*/
+        console.log(roundedNumbers);
+        return roundedNumbers;
+    }
+    function testRoundNumbers() {
+        var numbers = roundNumbers([3, 8.25, 4.5555]);
+        var expectedNumbers = "3,8.25,4.56";
+        if (numbers + "" !== expectedNumbers) {
+            console.log("Test failed. Expected " + expectedNumbers);
+        }
+        var emptyArray = roundNumbers([]);
+        if (emptyArray.length !== 0) {
+            console.log("Test failed. Expected an empty array.");
+        }
+    }
 
+    function fuzzyNumberArrayCompare(array1, array2) {
+        var roundedArray1 = roundNumbers(array1);
+        var roundedArray2 = roundNumbers(array2); 
+        if (roundedArray1 + "" == roundedArray2 + "") {
+            return true;
+        } else {
+            return false;
+        } 
+    }
+
+   function testfuzzyNumberArrayCompare() {
+       if (fuzzyNumberArrayCompare([], []) === false) {
+           console.log("Test failed. Expected two empty arrays to be equal.");
+       }
+       if (fuzzyNumberArrayCompare([3], [3]) === false) {
+           console.log("Test failed. Expected [3] to be equal to [3].");
+       }
+       if (fuzzyNumberArrayCompare([3.23], [3.225]) === false) {
+           console.log("Test failed. Expected [3.23] to be equal to [3.225].");
+       }
+   } 
 
     function normalCase() {
-        function fuzzyNumbersArrayCompare() {
-            var fuzzyNumbers = [];
-            for (i=0; i<test_positions.length; i++){
-            var fuzzies = Math.round(test_positions[i]); //* Math.PI / 180) * -120 + 180;
-            fuzzyNumbers.push(fuzzies);
-            }
-            console.log(fuzzyNumbers);
-            return fuzzyNumbers;
-        }
-
         var test_positions = calcXpositions(3, 8, 4);
         console.log(test_positions);
         if (test_positions + "" !== "3,4.666666666666667,6.333333333333334,8") {     
             console.log("Test failed. Expected [3,4.666666666666667,6.333333333333334,8]");    
         }
-        fuzzyNumbersArrayCompare();
     }
 
     function errorCase() {
@@ -110,9 +131,14 @@ function unitTests() {
             console.log("Test failed: calcXpositions should throw an error if count < 2.");
         } catch(err) {}
     }
+
+    testRoundNumbers();
+    testfuzzyNumberArrayCompare();
+
     trivialCase();
     normalCase();
     errorCase();
+    
 }
 
 // im array von x_positions werden die x positionen benannt
