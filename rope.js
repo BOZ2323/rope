@@ -65,11 +65,22 @@ var y_positions = sinusShape(x_positions);
 
 function unitTests() {
     function trivialCase() {
-        var test_positions = calcXpositions(3, 8, 2);
-        if (test_positions.toString() !== "3,8") {    
-            console.log("Test failed. Expected [3, 8]");
-        }
+        var test_positions = calcXpositions(3,8,2);
+        var shouldBeResult = [4,8];
+        if (test_positions.length != shouldBeResult.length) {    
+            console.log("Test failed. Expected " + shouldBeResult.length); // Fehlermeldung ok?
+        } 
+
+        for (var i = 0; i < test_positions.length; i++) {
+            var content = test_positions[i];
+            
+            if (test_positions[content] !== shouldBeResult[content]) {
+                console.log("Test failed. Expected content to be equal.");
+                return false;
+            }
+        } return true;
     }
+
 
     function roundNumbers(numbers) { // gets values from normalCase 
         var roundedNumbers = [];
@@ -81,7 +92,6 @@ function unitTests() {
         return roundedNumbers; // returns value [array] to var test_positions
     }
 
-    
     function testRoundNumbers() {
         var numbers = roundNumbers([3, 8.25, 4.5555]);
         var expectedNumbers = "3,8.25,4.56";
@@ -93,6 +103,8 @@ function unitTests() {
             console.log("Test failed. Expected an empty array.");
         }
     }
+
+
 
     function fuzzyNumberArrayCompare(array1, array2) {
         var roundedArray1 = roundNumbers(array1);
