@@ -66,24 +66,26 @@ var y_positions = sinusShape(x_positions);
 function unitTests() {
     function trivialCase() {
         var test_positions = calcXpositions(3, 8, 2);
-        if (test_positions + "" !== "3,8") {    
+        if (test_positions.toString() !== "3,8") {    
             console.log("Test failed. Expected [3, 8]");
         }
     }
 
-    function roundNumbers(numbers) {
+    function roundNumbers(numbers) { // gets values from normalCase 
         var roundedNumbers = [];
-        for (i=0; i<numbers.length; i++){
+        for (i=0; i<numbers.length; i++) {
             var x = Math.round(numbers[i]*100)/100;
             roundedNumbers.push(x);
         }
         console.log(roundedNumbers);
-        return roundedNumbers;
+        return roundedNumbers; // returns value [array] to var test_positions
     }
+
+    
     function testRoundNumbers() {
         var numbers = roundNumbers([3, 8.25, 4.5555]);
         var expectedNumbers = "3,8.25,4.56";
-        if (numbers + "" !== expectedNumbers) {
+        if (numbers.toString() !== expectedNumbers) {
             console.log("Test failed. Expected " + expectedNumbers);
         }
         var emptyArray = roundNumbers([]);
@@ -95,7 +97,7 @@ function unitTests() {
     function fuzzyNumberArrayCompare(array1, array2) {
         var roundedArray1 = roundNumbers(array1);
         var roundedArray2 = roundNumbers(array2); 
-        if (roundedArray1 + "" == roundedArray2 + "") {
+        if (roundedArray1.toString() == roundedArray2.toString()) {
             return true;
         } else {
             return false;
@@ -115,10 +117,10 @@ function unitTests() {
    } 
 
     function normalCase() {
-        var test_positions = calcXpositions(3, 8, 4);
+        //var test_positions = roundedNumbers;
         console.log(test_positions);
-        if (test_positions + "" !== "3,4.666666666666667,6.333333333333334,8") {     
-            console.log("Test failed. Expected [3,4.666666666666667,6.333333333333334,8]");    
+        if (test_positions.toString() !== "3,4.67,6.33,8") {     
+            console.log("Test failed. Expected [3,4.67,6.33,8]");    
         }
     }
 
@@ -131,7 +133,7 @@ function unitTests() {
             console.log("Test failed: calcXpositions should throw an error if count < 2.");
         } catch(err) {}
     }
-
+    var test_positions = roundNumbers(calcXpositions(3, 8, 4));
     testRoundNumbers();
     testfuzzyNumberArrayCompare();
 
