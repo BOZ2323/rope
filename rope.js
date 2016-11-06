@@ -72,11 +72,11 @@ function unitTests() {
         } 
 
         for (var i = 0; i < test_positions.length; i++) {
-            var content = test_positions[i];
-            
-            if (test_positions[content] !== shouldBeResult[content]) {
-                console.log("Test failed. Expected content to be equal.");
-                return false;
+            for (j = 0; j < shouldBeResult.length; j++){   
+                if (test_positions[i] !== shouldBeResult[j]) {
+                    console.log("Test failed. Expected content to be equal.");
+                    return false;
+                }
             }
         } return true;
     }
