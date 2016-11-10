@@ -63,24 +63,59 @@ var ctx = canvas.getContext("2d");
 var x_positions = calcXpositions(20, 340, 23); //der Variablen x_positions wird der return-wert zugewiesen 
 var y_positions = sinusShape(x_positions);
 
+function arrayCompare(array1, array2) {
+    if (array2.length != array1.length) {    
+        return false;
+    } 
+
+    for (var i = 0; i < array2.length; i++) {
+        if (array2[i] != array1[i]) {
+            return false;
+        }
+    } 
+    return true;
+}
+
+
 function unitTests() {
+
+    function testArrayCompare() {
+        if (arrayCompare([2,3,4],[2]) !== false) {
+            console.log("Test failed. arrayCompare() should return false, when paramters don't have the same length.");
+        }
+        if (arrayCompare([],[]) !== true) {
+            console.log("Test failed. arrayCompare() should return true, when comparing two empty arrays.");
+        }
+        if (arrayCompare([2,3,4],[2,3,5]) !== false) {
+            console.log("Test failed. arrayCompare() should return false, when paramters don't have the same elements.");
+        }
+        if (arrayCompare([2,3,4],[2,3,4]) !== true) {
+            console.log("Test failed. arrayCompare() should return true, when paramters are equal.");
+        }
+    }
+    
     function trivialCase() {
         var test_positions = calcXpositions(3,8,2);
-        var shouldBeResult = [4,8];
-        if (test_positions.length != shouldBeResult.length) {    
-            console.log("Test failed. Expected " + shouldBeResult.length); // Fehlermeldung ok?
-        } 
+        console.log(test_positions);
 
-        for (var i = 0; i < test_positions.length; i++) {
-            for (j = 0; j < shouldBeResult.length; j++){   
-                if (test_positions[i] !== shouldBeResult[j]) {
-                    console.log("Test failed. Expected content to be equal.");
-                    return false;
-                }
-            }
-        } return true;
     }
 
+    /*    
+    function trivialCase(array1, array2){
+        console.log(array1);
+        console.log(array2);
+
+        if (array1 === array2) return true;
+        if (array1.length != array2.length) return false;
+            console.log("Test failed. Length of arrays is not the same.");
+        for ( var i = 0; i < array1.length; i++ ){
+            if (array1[i] != array2[i]);
+            console.log("Test failed. Arrays are not equal.");
+            return false;
+        }
+        return true;
+    }
+    */
 
     function roundNumbers(numbers) { // gets values from normalCase 
         var roundedNumbers = [];
@@ -128,12 +163,23 @@ function unitTests() {
        }
    } 
 
+
     function normalCase() {
-        //var test_positions = roundedNumbers;
+        var test_positions = roundNumbers(calcXpositions(3,8,4));
         console.log(test_positions);
-        if (test_positions.toString() !== "3,4.67,6.33,8") {     
-            console.log("Test failed. Expected [3,4.67,6.33,8]");    
-        }
+        var shouldBeResult = [3,4.67,6.33,8];   
+        if (test_positions.length != shouldBeResult.length) {    
+            console.log("Test failed. Expected test_position.length to be equal to" + shouldBeResult.length); // Fehlermeldung ok?
+        } 
+
+        for (var i = 0; i < test_positions.length; i++) {
+            for (var j = 0; j < shouldBeResult.length; j++){   
+                if (test_positions[i] !== shouldBeResult[j]) {
+                    console.log("Test failed. Expected content to be equal.");
+                    return false;
+                }
+            }
+        } return true;
     }
 
     function errorCase() {
@@ -146,13 +192,18 @@ function unitTests() {
         } catch(err) {}
     }
     var test_positions = roundNumbers(calcXpositions(3, 8, 4));
+    
+    //var array1 = calcXpositions(3,8,2);
+    //var array2 = [3, 8];
     testRoundNumbers();
     testfuzzyNumberArrayCompare();
 
+    //trivialCase(array1, array2);
+    testArrayCompare();
     trivialCase();
     normalCase();
     errorCase();
-    
+        
 }
 
 // im array von x_positions werden die x positionen benannt
