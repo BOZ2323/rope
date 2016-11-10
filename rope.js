@@ -38,7 +38,6 @@ function sinusShape(xps) {
     return yps;
 } 
 
-
 function calcXpositions(start, end, count) {
     if (count<2) {
         throw new Error("Count must be two or higher");
@@ -55,11 +54,9 @@ function calcXpositions(start, end, count) {
     return xCoordinates;
 }
 
-
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-//var x_positions = [20, 40, 200, 250, 260];
 var x_positions = calcXpositions(20, 340, 23); //der Variablen x_positions wird der return-wert zugewiesen 
 var y_positions = sinusShape(x_positions);
 
@@ -76,6 +73,10 @@ function arrayCompare(array1, array2) {
     return true;
 }
 
+
+///////////////////////////////////////////
+// UNIT TESTS
+///////////////////////////////////////////
 
 function unitTests() {
 
@@ -97,25 +98,10 @@ function unitTests() {
     function trivialCase() {
         var test_positions = calcXpositions(3,8,2);
         console.log(test_positions);
-
-    }
-
-    /*    
-    function trivialCase(array1, array2){
-        console.log(array1);
-        console.log(array2);
-
-        if (array1 === array2) return true;
-        if (array1.length != array2.length) return false;
-            console.log("Test failed. Length of arrays is not the same.");
-        for ( var i = 0; i < array1.length; i++ ){
-            if (array1[i] != array2[i]);
-            console.log("Test failed. Arrays are not equal.");
-            return false;
+        if (arrayCompare(test_positions,[3,8]) !== true) {
+            console.log("Test failed. Expected result to be [3,8]");
         }
-        return true;
     }
-    */
 
     function roundNumbers(numbers) { // gets values from normalCase 
         var roundedNumbers = [];
@@ -139,8 +125,6 @@ function unitTests() {
         }
     }
 
-
-
     function fuzzyNumberArrayCompare(array1, array2) {
         var roundedArray1 = roundNumbers(array1);
         var roundedArray2 = roundNumbers(array2); 
@@ -151,35 +135,24 @@ function unitTests() {
         } 
     }
 
-   function testfuzzyNumberArrayCompare() {
-       if (fuzzyNumberArrayCompare([], []) === false) {
-           console.log("Test failed. Expected two empty arrays to be equal.");
-       }
-       if (fuzzyNumberArrayCompare([3], [3]) === false) {
-           console.log("Test failed. Expected [3] to be equal to [3].");
-       }
-       if (fuzzyNumberArrayCompare([3.23], [3.225]) === false) {
-           console.log("Test failed. Expected [3.23] to be equal to [3.225].");
-       }
-   } 
-
+    function testfuzzyNumberArrayCompare() {
+        if (fuzzyNumberArrayCompare([], []) === false) {
+            console.log("Test failed. Expected two empty arrays to be equal.");
+        }
+        if (fuzzyNumberArrayCompare([3], [3]) === false) {
+            console.log("Test failed. Expected [3] to be equal to [3].");
+        }
+        if (fuzzyNumberArrayCompare([3.23], [3.225]) === false) {
+            console.log("Test failed. Expected [3.23] to be equal to [3.225].");
+        }
+    } 
 
     function normalCase() {
         var test_positions = roundNumbers(calcXpositions(3,8,4));
-        console.log(test_positions);
         var shouldBeResult = [3,4.67,6.33,8];   
-        if (test_positions.length != shouldBeResult.length) {    
-            console.log("Test failed. Expected test_position.length to be equal to" + shouldBeResult.length); // Fehlermeldung ok?
+        if (arrayCompare(test_positions, shouldBeResult) !== true) {
+            console.log("Test failed. Expected calcXpositions to return roughly: " + shouldBeResult);
         } 
-
-        for (var i = 0; i < test_positions.length; i++) {
-            for (var j = 0; j < shouldBeResult.length; j++){   
-                if (test_positions[i] !== shouldBeResult[j]) {
-                    console.log("Test failed. Expected content to be equal.");
-                    return false;
-                }
-            }
-        } return true;
     }
 
     function errorCase() {
@@ -191,19 +164,14 @@ function unitTests() {
             console.log("Test failed: calcXpositions should throw an error if count < 2.");
         } catch(err) {}
     }
-    var test_positions = roundNumbers(calcXpositions(3, 8, 4));
-    
-    //var array1 = calcXpositions(3,8,2);
-    //var array2 = [3, 8];
+
     testRoundNumbers();
     testfuzzyNumberArrayCompare();
 
-    //trivialCase(array1, array2);
     testArrayCompare();
     trivialCase();
     normalCase();
     errorCase();
-        
 }
 
 // im array von x_positions werden die x positionen benannt
