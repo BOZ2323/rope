@@ -1,4 +1,4 @@
-function drawRope(horizontalPositions, verticalPositions, radius){
+function drawRope(horizontalPositions, verticalPositions, radius, colorFill, colorStroke){
     if (horizontalPositions.length !== verticalPositions.length) {
         throw new Error("horizontalPositions.length does not match verticalPositions.length");
     }
@@ -11,11 +11,13 @@ function drawRope(horizontalPositions, verticalPositions, radius){
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, 2 * Math.PI);
         ctx.fill();
+        ctx.fillStyle = colorFill;
 
         if (i !== 0) {
             ctx.moveTo(x, y); 
             ctx.lineTo(oldx, oldy); // das Objekt ctx hat die Eigenschaft lineTo, die eine Funktion ist. Die Funktion lineTo wird mit zwei Parametern aufgerufen: werte oldx, oldy 
             ctx.stroke();
+            ctx.strokeStyle = colorStroke;
         }
 
         oldx = x;
@@ -186,7 +188,14 @@ var x_positions = calcXpositions(20, 340, 23); //der Variablen x_positions wird 
 function drawFrame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     var y_positions = sinusShape(x_positions, Date.now()/1000); // Date.now gibt ms aus. Daher Umrechnung von ms in s 
-    drawRope(x_positions, y_positions,6);
+    drawRope(x_positions, y_positions,6, "#FF0000", "#FF0000");
+
+    y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); 
+    drawRope(x_positions, y_positions,6, "#296AE3", "#296AE3");
+
+    //y_positions = sinusShape(x_positions, Date.now()/1000 + 0,01); 
+    //drawRope(x_positions, y_positions,6, "#296AE3", "#296AE3");
+
 }
 setInterval(drawFrame, 20);
 
