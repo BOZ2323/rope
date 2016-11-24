@@ -16,7 +16,7 @@ function unitTests() {
     }
 
     function trivialCase() {
-        var test_positions = calcXpositions(3,8,2);
+        var test_positions = fence(3,8,2);
         console.log(test_positions);
         if (arrayCompare(test_positions,[3,8]) !== true) {
             console.log("Test failed. Expected result to be [3,8]");
@@ -68,20 +68,20 @@ function unitTests() {
     } 
 
     function normalCase() {
-        var test_positions = roundNumbers(calcXpositions(3,8,4));
+        var test_positions = roundNumbers(fence(3,8,4));
         var shouldBeResult = [3,4.67,6.33,8];   
         if (arrayCompare(test_positions, shouldBeResult) !== true) {
-            console.log("Test failed. Expected calcXpositions to return roughly: " + shouldBeResult);
+            console.log("Test failed. Expected fence to return roughly: " + shouldBeResult);
         } 
     }
 
     function errorCase() {
-        // test if calcXpositions throws an error if count < 2
+        // test if fence throws an error if count < 2
         try {
-            calcXpositions(3,8,1);
-            // if we reach this line, it means calcXpositions did not
+            fence(3,8,1);
+            // if we reach this line, it means fence did not
             // throw an error. (we would be inside the catch block if it did)
-            console.log("Test failed: calcXpositions should throw an error if count < 2.");
+            console.log("Test failed: fence should throw an error if count < 2.");
         } catch(err) {}
     }
 

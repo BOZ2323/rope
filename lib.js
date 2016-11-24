@@ -47,7 +47,7 @@ function sinusShape(xps, t) { // weiteres Parameter könnte die Amplitude sy sei
     return yps;
 } 
 
-function calcXpositions(start, end, count) {
+function fence(start, end, count) {
     if (count<2) {
         throw new Error("Count must be two or higher");
     }

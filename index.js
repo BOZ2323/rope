@@ -4,7 +4,7 @@ unitTests();
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-var x_positions = calcXpositions(20, 340, 10); //der Variablen x_positions wird der return-wert zugewiesen 
+var x_positions = fence(20, 340, 10); //der Variablen x_positions wird der return-wert zugewiesen 
 
 
 function drawFrame() {
