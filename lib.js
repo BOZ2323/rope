@@ -42,8 +42,8 @@ function sinusShape(xps, t) { // weiteres Parameter könnte die Amplitude sy sei
         // ty: verschiebt nach oben bzw. unten
         // tx: translation links, rechts
     }
-    console.log("die X-Positionen:   " + xps);
-    console.log(yps);
+    //console.log("die X-Positionen:   " + xps);
+    //console.log(yps);
     return yps;
 } 
 
@@ -64,7 +64,6 @@ function fence(start, end, count) {
 }
 
 //var y_positions = sinusShape(x_positions);
-
 function arrayCompare(array1, array2) {
     if (array2.length != array1.length) {    
         return false;
@@ -78,4 +77,20 @@ function arrayCompare(array1, array2) {
     return true;
 }
 
+function tolerantArrayCompare(array1,array2,tolerance){
+    if (array2.length != array1.length) {    
+        return false;
+    } 
+
+    for (var i = 0; i < array2.length; i++) {
+        var difference = array1[i] - array2[i];
+        if (difference < 0) {
+            difference = difference * -1;
+        }
+        if (difference > tolerance) {
+            return false;
+        }
+    }
+    return true;        
+}
 

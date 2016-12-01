@@ -1,5 +1,5 @@
 function unitTests() {
-
+    console.log("test.js läuft!");
     function testArrayCompare() {
         if (arrayCompare([2,3,4],[2]) !== false) {
             console.log("Test failed. arrayCompare() should return false, when paramters don't have the same length.");
@@ -12,6 +12,17 @@ function unitTests() {
         }
         if (arrayCompare([2,3,4],[2,3,4]) !== true) {
             console.log("Test failed. arrayCompare() should return true, when paramters are equal.");
+        }
+    }
+    function testTolerantArrayCompare(){
+        if (tolerantArrayCompare([1, 3, 6],[1, 3, 6], 0.1) !== true) {
+            console.log("Test failed. tolerantArrayCompare() should return true, because arrays are equal.");
+        }
+        if (tolerantArrayCompare([1, 3, 5],[1, 3, 6], 0.1) !== false) {
+            console.log("Test failed. tolerantArrayCompare() should return false, because arrays are different and tolerance is exceeded.");
+        }
+        if (tolerantArrayCompare([2.1, 3, 5],[2, 3, 5], 0.2) !== true) {
+            console.log("Test failed. tolerantArrayCompare() should return true, because arrays are different but  tolerance is not exceeded.");
         }
     }
 
@@ -45,7 +56,7 @@ function unitTests() {
         }
     }
 
-    function fuzzyNumberArrayCompare(array1, array2) {
+    function fuzzyNumberArrayCompare(array1, array2) { //parameter kommen von Zeile 58 testfuzzyNumberArrayCompare()
         var roundedArray1 = roundNumbers(array1);
         var roundedArray2 = roundNumbers(array2); 
         if (roundedArray1.toString() == roundedArray2.toString()) {
@@ -89,7 +100,8 @@ function unitTests() {
     testfuzzyNumberArrayCompare();
 
     testArrayCompare();
+    testTolerantArrayCompare();
     trivialCase();
     normalCase();
     errorCase();
-}
+    }
